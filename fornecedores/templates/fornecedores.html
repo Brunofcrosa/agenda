@@ -38,8 +38,16 @@
                                 <td>{{ fornecedor.cnpj }}</td>
                                 <td>{{ fornecedor.fone }}</td>
                                 <td style="text-align: center">
-                                    <a href="{% url 'editar_fornecedor' fornecedor.id %}" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="{% url 'excluir_fornecedor' fornecedor.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?')">Excluir</a>
+                                    <a href="{% url 'fornecedor_editar' fornecedor.pk %}">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a href="{% url 'fornecedor_apagar' fornecedor.pk %}">
+                                        <span class="icon">
+                                            <i class="far fa-trash-alt"></i>
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
