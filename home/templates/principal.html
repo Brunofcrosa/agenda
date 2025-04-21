@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
 <html lang="pt-br" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -98,6 +100,12 @@
             </nav>
         </div>
     </section>
+
+    {% if messages %}
+        <div class="container-fluid p-3">
+            {% bootstrap_messages %}
+        </div>
+    {% endif %}
 
     {% block content %}{% endblock %}
 

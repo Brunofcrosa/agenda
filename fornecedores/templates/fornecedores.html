@@ -1,4 +1,5 @@
 {% extends 'principal.html' %}
+{% load django_bootstrap5 %}
 {% load static %}
 
 {% block content %}
@@ -54,11 +55,10 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="d-flex justify-content-center">
+                    {% bootstrap_pagination object_list url="/fornecedores?page=1" size="sm" %}
+                </div>
             </div>
-        </div>
-        {% else %}
-        <div class="alert alert-info mt-4" role="alert">
-            Não existem fornecedores cadastrados!
         </div>
         {% endif %}
     </div>
