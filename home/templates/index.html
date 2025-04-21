@@ -1,13 +1,20 @@
 {% extends "principal.html" %}
+
 {% block content %}
     <section class="section bg-success p-2 bg-opacity-75">
         <div class="container text-center text-white">
             <h1 class="display-1">LavaCar</h1>
-            <h1 class="display-4">Agendamento de Horários</h1>
-            <h1 class="font-weight-normal">Sistema para agendamento de horários</h1>
+            <h2 class="display-4">Agendamento de Horários</h2>
+            <p class="lead">Sistema para agendamento de horários</p>
         </div>
     </section>
+
     {% block registros %}
         {% include "registros.html" %}
     {% endblock %}
+
+
+        
+ 
+
 {% endblock %}

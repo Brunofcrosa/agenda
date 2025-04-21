@@ -1,0 +1,58 @@
+{% extends 'principal.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <form method="GET" action=".">
+            <div class="form-group row p-3">
+                <label class="col-sm-2 col-form-label">Nome do fornecedor:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" name="buscar" value="{{ request.GET.buscar }}"
+                        placeholder="Digite o nome do fornecedor">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        {% if object_list %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="text-center mb-4">Fornecedores Cadastrados</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>Fone</th>
+                                <th style="width: 160px; text-align: center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fornecedor in object_list %}
+                            <tr>
+                                <td>{{ fornecedor.nome }}</td>
+                                <td>{{ fornecedor.cnpj }}</td>
+                                <td>{{ fornecedor.fone }}</td>
+                                <td style="text-align: center">
+                                    <a href="{% url 'editar_fornecedor' fornecedor.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="{% url 'excluir_fornecedor' fornecedor.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?')">Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info mt-4" role="alert">
+            Não existem fornecedores cadastrados!
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
