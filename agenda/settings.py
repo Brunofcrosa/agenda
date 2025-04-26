@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS += ['django_bootstrap5', 'stdimage', 'clientes', ]
+INSTALLED_APPS += ['django_bootstrap5', 'stdimage', 'clientes', 'funcionarios' ]
 
 INSTALLED_APPS += ['home', 'fornecedores', ]
 
