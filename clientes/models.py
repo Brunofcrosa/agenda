@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.functions import Upper
-
 from stdimage import StdImageField
 # Create your models here.
 class Pessoa(models.Model):
@@ -22,6 +21,7 @@ class Cliente(Pessoa):
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+        ordering = [Upper('nome')]
 
     def __str__(self):
         return self.nome

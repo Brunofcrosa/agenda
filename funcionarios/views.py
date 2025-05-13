@@ -21,7 +21,7 @@ class FuncionariosView(ListView):
             qs = qs.filter(nome__icontains=buscar)
 
         if qs.count() > 0:
-            paginator = Paginator(qs, per_page=1)
+            paginator = Paginator(qs, per_page=2)
             listagem = paginator.get_page(self.request.GET.get('page'))
             return listagem
         else:
