@@ -1,0 +1,13 @@
+<h3>Olá <strong>{{cliente}}</strong>! </h3>
+<p>Estamos enviando este e-mail para comunicar que os serviços que você solicitou já foram concluídos. </p>
+<h3>Dados do Atendimento</h3>
+<p><strong>Horário: </strong> {{ horario }} </p>
+<p><strong>Funcionário responsável pelo agendamento: </strong> {{ funcionario }} </p>
+<h4>Serviços realizados</h4>
+{% for desc in descricao %}
+    {{ desc }} <br>
+{% endfor %}
+<strong>Valor total: </strong> {{ valor }} </p>
+<p>Informamos que o seu veículo está à disposição e pode ser retirado.</p>
+<p><strong>Agradecemos pela preferência! Volte sempre!</strong></p>
+<p style="color: darkcyan"><strong>LavaCar</strong></p>

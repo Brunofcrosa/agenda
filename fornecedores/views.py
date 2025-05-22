@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import FornecedorModelForm
 from .models import Fornecedor
+from django.shortcuts import redirect
 
 
 class FornecedoresView(ListView):
@@ -45,3 +46,14 @@ class FornecedorDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'fornecedor_apagar.html'
     success_url = reverse_lazy('fornecedores')
     success_message = 'Fornecedor apagado com sucesso!'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        try:
+            return super().post(request, *args, **kwargs)
+        except Exception as e:
+            messages.error(request, f'O fornecedor {self.object} não pode ser excluido.'f'Esse fornecedor está registrado no fornecimento de produtos')
+        finally:
+            return redirect(success_url)
+        

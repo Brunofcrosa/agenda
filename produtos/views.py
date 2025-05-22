@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import UpdateView, DeleteView
+from django.shortcuts import redirect
 
 class ProdutosView(ListView):
     model = Produto
@@ -45,3 +46,14 @@ class ProdutoDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'produto_apagar.html'
     success_url = reverse_lazy('produtos')
     success_message = 'produto apagado com sucesso!'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        try:
+            return super().post(request, *args, **kwargs)
+        except Exception as e:
+            messages.error(request, f'O produto {self.object} não pode ser excluido.'f'Esse produto é utilizado em serviços')
+        finally:
+            return redirect(success_url)
+        

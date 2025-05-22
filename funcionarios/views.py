@@ -8,6 +8,7 @@ from .forms import FuncionarioModelForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
+from django.shortcuts import redirect
 
 class FuncionariosView(ListView):
     model = Funcionario
@@ -46,3 +47,13 @@ class FuncionarioDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'funcionario_apagar.html'
     success_url = reverse_lazy('funcionarios')
     success_message = 'Funcionário alterado com sucesso!'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        try:
+            return super().post(request, *args, **kwargs)
+        except Exception as e:
+            messages.error(request, f'O funcionario {self.object} não pode ser excluido.'f'Esse funcionario está registrado em agendamentos')
+        finally:
+            return redirect(success_url)

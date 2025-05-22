@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.urls import reverse_lazy
-
+from django.shortcuts import redirect
 from .models import Cliente
 from .forms import ClienteModelForm
 
@@ -50,3 +50,14 @@ class ClienteDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'cliente_apagar.html'
     success_url = reverse_lazy('clientes')
     success_message = 'Cliente excluído com sucesso!'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        try:
+            return super().post(request, *args, **kwargs)
+        except Exception as e:
+            messages.error(request, f'O cliente {self.object} não pode ser excluido.'f'Esse cliente está registrado em agendamentos')
+        finally:
+            return redirect(success_url)
+        
