@@ -16,6 +16,7 @@ class Agendamento(models.Model):
         return OrdemServico.objects.filter(agendamento=self)
     
     class Meta:
+        permissions = (('fechar_agendamento', 'Permite fazer o fechamento de um agendamento'),)
         verbose_name = 'Agendamento'
         verbose_name_plural = 'Agendamentos'
         ordering = ['-horario']

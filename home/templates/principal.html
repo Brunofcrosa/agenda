@@ -28,7 +28,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <!-- Clientes -->
+                            {% if request.user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarCliente" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,6 +94,33 @@
                                     <li><a class="dropdown-item" href="{% url 'agendamentos' %}">Listar Agendamentos</a></li>
                                 </ul>
                             </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Usuário: {{ request.user.username }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'alterar_senha' %}">Alterar senha</a></li>
+                                    <li>
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn-link dropdown-item" type="submit">Log Out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarAcesso" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Acesso
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

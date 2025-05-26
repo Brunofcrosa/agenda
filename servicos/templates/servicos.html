@@ -47,11 +47,13 @@
                                     {% endfor %}
                                 </td>
                                 <td style="text-align: center">
+                                    {% if perms.servicos.add_produtosservico %}
                                     <a href="{% url 'servico_inline' servico.pk %}">
                                         <span class="icon">
                                             <i class="fas fa-flask"></i>
                                         </span>
                                     </a>
+                                    {% endif %}
                                     <a href="{% url 'servico_editar' servico.pk %}">
                                         <span class="icon">
                                             <i class="fas fa-edit"></i>

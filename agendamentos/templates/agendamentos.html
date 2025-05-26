@@ -38,7 +38,7 @@
                             <td> {{ agendamento.funcionario }} </td>
                             <td>
                                 {% for servico in agendamento.servicos %}
-                                    {{ servico }} - R$ {{ servico.preco }} ({{servico.get_situacao_display }}) <br>
+                                {{ servico }} - R$ {{ servico.preco }} ({{servico.get_situacao_display }}) <br>
                                 {% endfor %}
                                 <strong>Valor Total: {{ agendamento.valor }}</strong>
                             </td>
@@ -49,7 +49,7 @@
                                         <i class="fas fa-pencil-alt"></i>
                                     </span>
                                 </a>
-                                
+
                                 <a href="{% url 'agendamento_editar' agendamento.pk %}">
                                     <span class="icon">
                                         <i class="fas fa-edit"></i>
@@ -60,7 +60,7 @@
                                         <i class="far fa-trash-alt"></i>
                                     </span>
                                 </a>
-                            {% else %}
+                                {% else %}
                                 <span class="icon">
                                     <i class="fas fa-pencil-alt"></i>
                                 </span>
@@ -72,22 +72,24 @@
                                 <span class="icon">
                                     <i class="far fa-trash-alt"></i>
                                 </span>
-                            {% endif %}
-                            <a href="{% url 'agendamento_exibir' agendamento.pk %}">
-                                <span class="icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </span>
-                            </a>
+                                {% endif %}
+                                {% if perms.agendamentos.fechar_agendamento %}
+                                <a href="{% url 'agendamento_exibir' agendamento.pk %}">
+                                    <span class="icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </span>
+                                </a>
+                                {% endif %}
                             </td>
                         </tr>
-                    {% endfor %}
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center">
                 {% bootstrap_pagination object_list url="/agendamentos?page=1" size="sm" %}
+            </div>
+            {% endif %}
         </div>
-    {% endif %}
-    </div>
 </section>
 {% endblock %}

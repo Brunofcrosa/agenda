@@ -137,3 +137,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'brunofcrosa1@gmail.com'
 EMAIL_HOST_PASSWORD = 'zjan ymbh nabv fldm'
 DEFAULT_FROM_EMAIL = 'Lavacar'
+
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'index'

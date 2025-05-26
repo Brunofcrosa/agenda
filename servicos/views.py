@@ -9,8 +9,11 @@ from .models import Servico
 from .forms import ServicoModelForm, ProdutosServicoInLine
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-class ServicosView(ListView):
+class ServicosView(PermissionRequiredMixin, ListView):
+    permission_required = 'servicos.view_servico'
+    permission_denied_message = 'Visualizar Serviço'
     model = Servico
     template_name = 'servicos.html'
 
@@ -28,27 +31,35 @@ class ServicosView(ListView):
         else:
             return messages.info(self.request, 'Não existem Serviços cadastrados!')
         
-class ServicoAddView(SuccessMessageMixin, CreateView):
+class ServicoAddView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'servicos.add_servico'
+    permission_denied_message = 'Cadastrar Serviço'
     model = Servico
     form_class = ServicoModelForm
     template_name = 'servico_form.html'
     success_url = reverse_lazy('servicos')
     success_message = 'Serviço cadastrado com sucesso!'
     
-class ServicoUpdateView(SuccessMessageMixin, UpdateView):
+class ServicoUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'servicos.update_servico'
+    permission_denied_message = 'Alterar Serviço'
     model = Servico
     form_class = ServicoModelForm
     template_name = 'servico_form.html'
     success_url = reverse_lazy('servicos')
     success_message = 'Serviço alterado com sucesso!'
 
-class ServicoDeleteView(SuccessMessageMixin, DeleteView):
+class ServicoDeleteView(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+    permission_required = 'servicos.delete_servico'
+    permission_denied_message = 'Excluir Serviço'
     model = Servico
     template_name = 'servico_apagar.html'
     success_url = reverse_lazy('servicos')
     success_message = 'Serviço apagado com sucesso!'
 
-class ServicoInLineEditView(TemplateResponseMixin, View):
+class ServicoInLineEditView(PermissionRequiredMixin, TemplateResponseMixin, View):
+    permission_required = 'servicos.update_servico'
+    permission_denied_message = 'Alterar Serviço'
     template_name = 'servico_form_inline.html'
 
     def get_formset(self, data=None):
